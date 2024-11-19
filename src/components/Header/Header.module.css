@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(212, 236, 188);
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navBox {
+  display: flex;
+  gap: 20px;
+  a {
+    text-decoration: none;
+  }
+
+  .active {
+    text-decoration: underline;
+    color: rgb(188, 146, 8);
+  }
+}
