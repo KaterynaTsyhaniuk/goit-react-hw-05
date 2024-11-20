@@ -5,7 +5,7 @@ const MovieList = ({ movies }) => {
     <ul>
       {movies.map((movie) => (
         <li key={movie.id}>
-          <NavLink to={`${movie.id}`}>{movie.title}</NavLink>
+          <NavLink to={movie.id.toString()}>{movie.title}</NavLink>
         </li>
       ))}
     </ul>

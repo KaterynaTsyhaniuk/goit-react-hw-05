@@ -1,12 +1,24 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { searchMoviesById } from "../../services/api";
+
 const MovieDetailsPage = () => {
+  const { movieId } = useParams();
+
+  const [movie, setMovie] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await searchMoviesById(movieId);
+      setMovie(data);
+    };
+    getData();
+  }, [movieId]);
+
   return (
     <div>
-      <h2>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aliquid
-        sed voluptate ipsa minima obcaecati numquam qui deleniti ratione facere
-        dolorum repellat, sapiente culpa aut inventore, illum nulla eius.
-        Blanditiis!
-      </h2>
+      <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+      <h2>{movie.title}</h2>
     </div>
   );
 };
