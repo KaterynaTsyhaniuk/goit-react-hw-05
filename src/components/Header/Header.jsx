@@ -17,6 +17,7 @@ const Header = () => {
           Movies
         </NavLink>
       </nav>
+      <p>MovieSpace</p>
     </header>
   );
 };

@@ -1,12 +1,25 @@
-import { useEffect } from "react";
+import { searchMovies } from "../../services/api";
+import MovieList from "/src/components/MovieList/MovieList";
+import { useState, useEffect } from "react";
 
 const MoviesPage = () => {
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
-    document.title = "Movies";
+    const getData = async () => {
+      try {
+        const data = await searchMovies("Inception", 1);
+        setMovies(data.results);
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      }
+    };
+    getData();
   }, []);
+
   return (
     <div>
-      <h2>Hello</h2>
+      <MovieList movies={movies} />
     </div>
   );
 };
