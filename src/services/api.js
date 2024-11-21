@@ -19,6 +19,11 @@ export const searchMoviesById = async (id) => {
   return data;
 };
 
+export const searchMoviesReviewsById = async (id) => {
+  const { data } = await axios.get(`/movie/${id}/reviews`);
+  return data.results;
+};
+
 searchMovies()
   .then((data) => console.log("Movies:", data))
   .catch((error) => console.error(error));
