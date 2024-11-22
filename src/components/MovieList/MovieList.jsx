@@ -1,11 +1,11 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const MovieList = ({ movies }) => {
   return (
     <ul>
       {movies.map((movie) => (
         <li key={movie.id}>
-          <NavLink to={movie.id.toString()}>{movie.title}</NavLink>
+          <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
         </li>
       ))}
     </ul>

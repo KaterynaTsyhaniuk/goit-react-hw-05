@@ -44,8 +44,8 @@ const MovieDetailsPage = () => {
       <h4>Genres</h4>
       <p>{genreName}</p>
       <p>{movie.genre_ids}</p>
-      <Link to="cast">MovieCast</Link>
-      <Link to="reviews">MovieReviews</Link>
+      <Link to="cast">Cast</Link>
+      <Link to="reviews">Reviews</Link>
       <Outlet />
     </div>
   );

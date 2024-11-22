@@ -1,25 +1,27 @@
-import { searchMovies } from "../../services/api";
+import { useState } from "react";
 import MovieList from "/src/components/MovieList/MovieList";
-import { useState, useEffect } from "react";
+import SearchBar from "/src/components/SearchBar/SearchBar";
 
-const MoviesPage = () => {
-  const [movies, setMovies] = useState([]);
+const MoviesPage = ({ movies }) => {
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await searchMovies("Inception", 1);
-        setMovies(data.results);
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-      }
-    };
-    getData();
-  }, []);
+  const handleSearch = (query) => {
+    if (typeof query !== "string") return;
+
+    const filteredData = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredMovies(filteredData);
+
+    setNoResults(filteredData.length === 0 && query.trim() !== "");
+  };
 
   return (
     <div>
-      <MovieList movies={movies} />
+      <SearchBar onSearch={handleSearch} />
+      {noResults && <p>No movies found. Try searching for something else!</p>}
+      {filteredMovies.length > 0 && <MovieList movies={filteredMovies} />}
     </div>
   );
 };
