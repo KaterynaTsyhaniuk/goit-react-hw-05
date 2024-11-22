@@ -34,6 +34,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
+      <Link to="/movies">Go back</Link>
       <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
       <h2>
         {movie.title}({releaseYear})
