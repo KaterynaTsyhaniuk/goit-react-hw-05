@@ -1,0 +1,9 @@
+.profileImage {
+  width: 100px;
+}
+
+.castList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

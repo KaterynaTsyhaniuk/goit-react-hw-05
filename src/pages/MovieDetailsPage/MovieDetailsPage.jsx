@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { searchMoviesById } from "../../services/api";
+import s from "./MovieDetailsPage.module.css";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -9,7 +10,7 @@ const MovieDetailsPage = () => {
   const [releaseYear, setReleaseYear] = useState("");
   const [movieRating, setMovieRating] = useState("");
   const location = useLocation();
-  const goBack = useRef(location.state);
+  const goBack = useRef(location?.state ?? "/movie");
 
   useEffect(() => {
     const getData = async () => {
@@ -37,19 +38,30 @@ const MovieDetailsPage = () => {
   return (
     <div>
       <Link to={goBack.current}>Go back</Link>
-      <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-      <h2>
-        {movie.title}({releaseYear})
-      </h2>
-      <p>User Score: {movieRating}%</p>
-      <h3>Overview</h3>
-      <p>{movie.overview}</p>
-      <h4>Genres</h4>
-      <p>{genreName}</p>
-      <p>{movie.genre_ids}</p>
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
-      <Outlet />
+      <div className={s.moviesCard}>
+        <img
+          className={s.posterImage}
+          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+        />
+        <div className={s.moviesInfo}>
+          <h2>
+            {movie.title} ({releaseYear})
+          </h2>
+          <p>User Score: {movieRating}%</p>
+          <h3>Overview</h3>
+          <p>{movie.overview}</p>
+          <h4>Genres</h4>
+          <p>{genreName}</p>
+          <p>{movie.genre_ids}</p>
+        </div>
+      </div>
+      <div className={s.castReviewList}>
+        <Link to="cast">Cast</Link>
+        <Link to="reviews">Reviews</Link>
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <Outlet />
+        </Suspense>
+      </div>
     </div>
   );
 };
