@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { searchMoviesById } from "../../services/api";
 
 const MovieDetailsPage = () => {
@@ -8,6 +8,8 @@ const MovieDetailsPage = () => {
   const [movie, setMovie] = useState(null);
   const [releaseYear, setReleaseYear] = useState("");
   const [movieRating, setMovieRating] = useState("");
+  const location = useLocation();
+  const goBack = useRef(location.state);
 
   useEffect(() => {
     const getData = async () => {
@@ -34,7 +36,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <Link to="/movies">Go back</Link>
+      <Link to={goBack.current}>Go back</Link>
       <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
       <h2>
         {movie.title}({releaseYear})

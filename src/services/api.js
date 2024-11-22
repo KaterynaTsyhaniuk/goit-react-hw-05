@@ -9,8 +9,15 @@ axios.defaults.params = {
   include_adult: false,
   language: "en-US",
 };
-export const searchMovies = async () => {
+export const searchTrendingMovies = async () => {
   const { data } = await axios.get(`/trending/movie/day`);
+  return data;
+};
+
+export const searchMovies = async (query) => {
+  const { data } = await axios.get(`/search/movie`, {
+    params: { query },
+  });
   return data;
 };
 
